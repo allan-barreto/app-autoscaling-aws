@@ -8,20 +8,26 @@ variable "aws_region" {
 
 # Variables
 
+variable "aws_account_id" {
+  type        = number
+  description = ""
+  default     = 919562065647
+}
+
 variable "service_name" {
   type        = string
   description = ""
   default     = "autoscaling-app"
 }
 
-variable "service_domain" {
+variable "instance_type" {
   type        = string
   description = ""
-  default     = "api-todo-abs"
+  default     = "t3.micro"
 }
 
-variable "aws_account_id" {
-  type        = number
+variable "instance_key_name" {
+  type        = string
   description = ""
-  default     = 919562065647
+  default     = "aws-ssh"
 }

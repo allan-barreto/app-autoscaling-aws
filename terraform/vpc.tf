@@ -41,9 +41,22 @@ resource "aws_route_table" "private" {
   tags   = merge(local.common_tags, { Name = "Terraform Private" })
 }
 
-resource "aws_route_table_association" "this" {
-  for_each       = local.subnet_ids
-  subnet_id      = each.value
-  route_table_id = substr(each.key, 0, 3) == "Pub" ? aws_route_table.public.id : aws_route_table.private.id
+resource "aws_route_table_association" "pub_a" {
+  subnet_id      = aws_subnet.this["pub_a"].id
+  route_table_id = aws_route_table.public.id
 }
 
+resource "aws_route_table_association" "pub_b" {
+  subnet_id      = aws_subnet.this["pub_b"].id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "pvt_a" {
+  subnet_id      = aws_subnet.this["pvt_a"].id
+  route_table_id = aws_route_table.private.id
+}
+
+resource "aws_route_table_association" "pvt_b" {
+  subnet_id      = aws_subnet.this["pvt_b"].id
+  route_table_id = aws_route_table.private.id
+}
